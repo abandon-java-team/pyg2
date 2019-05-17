@@ -1,16 +1,19 @@
-package com.pinyougou.manager.controller;
+package com.pinyougou.shop.controller;
 
-import java.util.List;
 
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.pinyougou.pojo.TbBrand;
 import com.pinyougou.sellergoods.service.BrandService;
-
 import entity.PageResult;
 import entity.Result;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * 请求处理器
@@ -24,6 +27,8 @@ public class BrandController {
     @Reference
     private BrandService brandService;
 
+   /* @Autowired
+    private RedisTemplate redisTemplate;*/
     /**
      * 返回全部列表
      *
@@ -120,4 +125,19 @@ public class BrandController {
         return brandService.findPage(brand, page, rows);
     }
 
+    /**
+     * 保存到redis
+     * @return
+     *//*
+    @RequestMapping("/addToRdedis")
+    public Result addToRdedis(@RequestBody TbBrand brand){
+        try {
+            String sellerId = SecurityContextHolder.getContext().getAuthentication().getName();
+            redisTemplate.boundHashOps(sellerId).put("brand", brand);
+            return new Result(true, "成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Result(false, "失败");
+        }
+    }*/
 }
