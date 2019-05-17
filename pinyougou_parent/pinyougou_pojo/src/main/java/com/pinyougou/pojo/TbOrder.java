@@ -3,6 +3,7 @@ package com.pinyougou.pojo;
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -24,6 +25,7 @@ public class TbOrder implements Serializable {
     /**
      * 订单Id，string类型
      */
+    @Transient
     private String orderIdStr;
     /**
      * 实付金额。精确到2位小数;单位:元。如:200.07，表示:200元7分
