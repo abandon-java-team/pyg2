@@ -16,6 +16,15 @@ public class TbOrder implements Serializable {
     @Id
     @Column(name = "order_id")
     private Long orderId;
+
+    public String getOrderIdStr() {
+        return this.orderId+"";
+    }
+
+    /**
+     * 订单Id，string类型
+     */
+    private String orderIdStr;
     /**
      * 实付金额。精确到2位小数;单位:元。如:200.07，表示:200元7分
      */
