@@ -85,4 +85,15 @@ public interface GoodsService {
      */
     public List<TbItem> findItemListByGoodsIdsAndStatus(Long[] goodsIds, String status);
 
+    /**
+     * 下面三个是新增的
+     * @param goodsIds
+     * @return
+     */
+    public List<TbItem> findItemListByGoodsIds(Long[] goodsIds);
+
+    public void updateMarketable(Long[] goodsIds,String marketable);
+
+    public List<TbGoods> findGoodsListByGoodsIds(Long[] goodsIds);
+
 }
