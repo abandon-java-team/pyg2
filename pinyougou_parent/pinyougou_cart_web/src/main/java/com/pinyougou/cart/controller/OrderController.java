@@ -121,9 +121,9 @@ public class OrderController {
      * @param rows
      * @return
      */
-    @RequestMapping("/search")
+   /* @RequestMapping("/search")
     public PageResult search(@RequestBody TbOrder order, int page, int rows) {
         return orderService.findPage(order, page, rows);
-    }
+    }*/
 
 }
