@@ -65,7 +65,7 @@ public interface OrderService {
      * @param pageSize 每页记录数
      * @return
      */
-    public PageResult findPage(TbOrder order, int pageNum, int pageSize);
+    public PageResult findPage(TbOrder order, int pageNum, int pageSize,String sellerId);
 
     /**
      * 根据用户查询payLog
@@ -84,4 +84,9 @@ public interface OrderService {
     public void updateOrderStatus(String out_trade_no, String transaction_id);
 
 
+    /**
+     * 发货
+     * @param orderId 订单id
+     */
+    public void deliverGoods(Long orderId);
 }

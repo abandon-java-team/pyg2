@@ -72,6 +72,7 @@ public class UserServiceImpl implements UserService {
     public void add(TbUser user) {
         //密码加密
         user.setPassword(DigestUtils.md5Hex(user.getPassword()));
+        System.out.println(DigestUtils.md5Hex(user.getPassword()));
         //时间
         user.setCreated(new Date());
         user.setUpdated(user.getCreated());

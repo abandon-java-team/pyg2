@@ -208,7 +208,7 @@ public class OrderServiceImpl implements OrderService {
 
 
     @Override
-    public PageResult findPage(TbOrder order, int pageNum, int pageSize) {
+    public PageResult findPage(TbOrder order, int pageNum, int pageSize,String sellerId) {
         PageResult<TbOrder> result = new PageResult<TbOrder>();
         //设置分页条件
         PageHelper.startPage(pageNum, pageSize);
@@ -216,6 +216,8 @@ public class OrderServiceImpl implements OrderService {
         //构建查询条件
         Example example = new Example(TbOrder.class);
         Example.Criteria criteria = example.createCriteria();
+        //只能查询登录的订单信息
+        criteria.andEqualTo("sellerId", sellerId);
 
         if (order != null) {
             //如果字段不为空
@@ -297,4 +299,16 @@ public class OrderServiceImpl implements OrderService {
         return result;
     }
 
+    /**
+     * 发货
+     * @param orderId 订单id
+     */
+    @Override
+    public void deliverGoods(Long orderId) {
+        TbOrder where = new TbOrder();
+        where.setOrderId(orderId);
+        where.setStatus("4");
+        where.setConsignTime(new Date());
+        orderMapper.updateByPrimaryKeySelective(where);
+    }
 }
