@@ -66,6 +66,7 @@ public interface OrderService {
      * @return
      */
     public PageResult findPage(TbOrder order, int pageNum, int pageSize,String sellerId);
+    public PageResult findPage(TbOrder order, int pageNum, int pageSize);
 
     /**
      * 根据用户查询payLog

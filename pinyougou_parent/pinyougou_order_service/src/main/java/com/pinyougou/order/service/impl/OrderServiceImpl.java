@@ -299,6 +299,96 @@ public class OrderServiceImpl implements OrderService {
         return result;
     }
 
+    @Override
+    public PageResult findPage(TbOrder order, int pageNum, int pageSize) {
+        PageResult<TbOrder> result = new PageResult<TbOrder>();
+        //设置分页条件
+        PageHelper.startPage(pageNum, pageSize);
+
+        //构建查询条件
+        Example example = new Example(TbOrder.class);
+        Example.Criteria criteria = example.createCriteria();
+
+        if(order!=null){
+            //如果字段不为空
+            if (order.getPaymentType()!=null && order.getPaymentType().length()>0) {
+                criteria.andLike("paymentType", "%" + order.getPaymentType() + "%");
+            }
+            //如果字段不为空
+            if (order.getPostFee()!=null && order.getPostFee().length()>0) {
+                criteria.andLike("postFee", "%" + order.getPostFee() + "%");
+            }
+            //如果字段不为空
+            if (order.getStatus()!=null && order.getStatus().length()>0) {
+                criteria.andLike("status", "%" + order.getStatus() + "%");
+            }
+            //如果字段不为空
+            if (order.getShippingName()!=null && order.getShippingName().length()>0) {
+                criteria.andLike("shippingName", "%" + order.getShippingName() + "%");
+            }
+            //如果字段不为空
+            if (order.getShippingCode()!=null && order.getShippingCode().length()>0) {
+                criteria.andLike("shippingCode", "%" + order.getShippingCode() + "%");
+            }
+            //如果字段不为空
+            if (order.getUserId()!=null && order.getUserId().length()>0) {
+                criteria.andLike("userId", "%" + order.getUserId() + "%");
+            }
+            //如果字段不为空
+            if (order.getBuyerMessage()!=null && order.getBuyerMessage().length()>0) {
+                criteria.andLike("buyerMessage", "%" + order.getBuyerMessage() + "%");
+            }
+            //如果字段不为空
+            if (order.getBuyerNick()!=null && order.getBuyerNick().length()>0) {
+                criteria.andLike("buyerNick", "%" + order.getBuyerNick() + "%");
+            }
+            //如果字段不为空
+            if (order.getBuyerRate()!=null && order.getBuyerRate().length()>0) {
+                criteria.andLike("buyerRate", "%" + order.getBuyerRate() + "%");
+            }
+            //如果字段不为空
+            if (order.getReceiverAreaName()!=null && order.getReceiverAreaName().length()>0) {
+                criteria.andLike("receiverAreaName", "%" + order.getReceiverAreaName() + "%");
+            }
+            //如果字段不为空
+            if (order.getReceiverMobile()!=null && order.getReceiverMobile().length()>0) {
+                criteria.andLike("receiverMobile", "%" + order.getReceiverMobile() + "%");
+            }
+            //如果字段不为空
+            if (order.getReceiverZipCode()!=null && order.getReceiverZipCode().length()>0) {
+                criteria.andLike("receiverZipCode", "%" + order.getReceiverZipCode() + "%");
+            }
+            //如果字段不为空
+            if (order.getReceiver()!=null && order.getReceiver().length()>0) {
+                criteria.andLike("receiver", "%" + order.getReceiver() + "%");
+            }
+            //如果字段不为空
+            if (order.getInvoiceType()!=null && order.getInvoiceType().length()>0) {
+                criteria.andLike("invoiceType", "%" + order.getInvoiceType() + "%");
+            }
+            //如果字段不为空
+            if (order.getSourceType()!=null && order.getSourceType().length()>0) {
+                criteria.andLike("sourceType", "%" + order.getSourceType() + "%");
+            }
+            //如果字段不为空
+            if (order.getSellerId()!=null && order.getSellerId().length()>0) {
+                criteria.andLike("sellerId", "%" + order.getSellerId() + "%");
+            }
+
+        }
+
+        //查询数据
+        List<TbOrder> list = orderMapper.selectByExample(example);
+        //保存数据列表
+        result.setRows(list);
+
+        //获取总记录数
+        PageInfo<TbOrder> info = new PageInfo<TbOrder>(list);
+        result.setTotal(info.getTotal());
+
+        return result;
+    }
+
     /**
      * 发货
      * @param orderId 订单id
