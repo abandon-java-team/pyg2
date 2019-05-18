@@ -99,7 +99,7 @@ public class OrderController {
 			return new Result(false, "删除失败");
 		}
 	}
-	
+
 	/**
 	 * 查询+分页
 	 * @param order
@@ -109,7 +109,8 @@ public class OrderController {
 	 */
 	@RequestMapping("/search")
 	public PageResult search(@RequestBody TbOrder order, int page, int rows  ){
-		return orderService.findPage(order, page, rows);		
+		return orderService.findPage(order, page, rows);
 	}
-	
+
+
 }
