@@ -111,6 +111,49 @@ public class CartServiceImpl implements CartService {
     }
 
     /**
+     * 根据商品ID添加收藏
+     * @param itemId
+     * @return
+     */
+    @Override
+    public List<TbItem> addGoodsToCollect(Long itemId) {
+        TbItem item = itemMapper.selectByPrimaryKey(itemId);
+        List<TbItem> collect = new ArrayList<>();
+        collect.add(item);
+        return collect;
+    }
+
+    /**
+     * 将收藏保存到redis
+     * @param username
+     * @param collect
+     */
+    @Override
+    public void saveCollectToRedis(String username, List<TbItem> collect) {
+        redisTemplate.boundHashOps("collect").put(username, collect);
+    }
+
+    /**
+     * 从redis中读取collect
+     * @param username
+     * @return
+     */
+    @Override
+    public List<TbItem> findCollectFromRedis(String username) {
+        List<TbItem> collect = (List<TbItem>) redisTemplate.boundHashOps("collect").get(username);
+        if (collect == null) {
+            collect = new ArrayList<>();
+        }
+        return collect;
+    }
+
+    @Override
+    public TbItem findByItemId(Long itemId) {
+        TbItem item = itemMapper.selectByPrimaryKey(itemId);
+        return item;
+    }
+
+    /**
      * 跟据商品skuId查询当前商家中有没有相应商品信息
      *
      * @param orderItemList 当前商家的商品列表

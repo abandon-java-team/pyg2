@@ -1,5 +1,6 @@
 package com.pinyougou.cart.service;
 
+import com.pinyougou.pojo.TbItem;
 import com.pinyougou.pojogroup.Cart;
 
 import java.util.List;
@@ -42,4 +43,11 @@ public interface CartService {
     public List<Cart> mergeCartList(List<Cart> cookieList, List<Cart> redisList);
 
 
+    public List<TbItem> addGoodsToCollect(Long itemId);
+
+    public void saveCollectToRedis(String username, List<TbItem> collect);
+
+    public List<TbItem> findCollectFromRedis(String username);
+
+    TbItem findByItemId(Long itemId);
 }

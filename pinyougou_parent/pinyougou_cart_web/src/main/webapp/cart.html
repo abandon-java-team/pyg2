@@ -29,7 +29,7 @@
             <ul class="fr">
                 <li class="f-item">我的订单</li>
                 <li class="f-item space"></li>
-                <li class="f-item">我的品优购</li>
+                <li class="f-item"><a href="home-index.html">我的品优购</a></li>
                 <li class="f-item space"></li>
                 <li class="f-item">品优购会员</li>
                 <li class="f-item space"></li>
@@ -99,7 +99,7 @@
                             <li class="yui3-u-1-8"><span class="sum">{{item.totalFee}}</span></li>
                             <li class="yui3-u-1-8">
                                 <a href="javascript:;" ng-click="addGoodsToCartList(item.itemId,-item.num)">删除</a><br/>
-                                <a href="#none">移到我的关注</a>
+                                <a href="javascript:;" ng-click="addGoodsToCollectList(item.itemId)">移到我的关注</a>
                             </li>
                         </ul>
                     </div>
@@ -113,7 +113,7 @@
             </div>
             <div class="option">
                 <a href="#none">删除选中的商品</a>
-                <a href="#none">移到我的关注</a>
+                <a href="javascript:;">移到我的关注</a>
                 <a href="#none">清除下柜商品</a>
             </div>
             <div class="toolbar">
