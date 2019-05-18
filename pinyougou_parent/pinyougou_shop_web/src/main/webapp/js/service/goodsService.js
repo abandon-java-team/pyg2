@@ -29,4 +29,14 @@ app.service('goodsService', function ($http) {
     this.search = function (page, rows, searchEntity) {
         return $http.post('../goods/search.do?page=' + page + "&rows=" + rows, searchEntity);
     }
+
+    this.addMarketable=function (goodsIds,marketable) {
+
+        return $http.get('../goods/addMarketable.do?goodsIds='+goodsIds+"&marketable="+marketable);
+    }
+
+    this.deleteMarketable=function (goodsIds,marketable) {
+
+        return $http.get('../goods/deleteMarketable.do?goodsIds='+goodsIds+"&marketable="+marketable);
+    }
 });

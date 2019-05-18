@@ -308,4 +308,55 @@ public class GoodsServiceImpl implements GoodsService {
         return itemList;
     }
 
+    /**
+     * 商品点击上架调用这个方法,查询item表.生成静态页面
+     * @param goodsIds
+     * @return
+     */
+    @Override
+    public List<TbItem> findItemListByGoodsIds(Long[] goodsIds) {
+        Example example = new Example(TbItem.class);
+
+        Example.Criteria criteria = example.createCriteria();
+
+        List longs = Arrays.asList(goodsIds);
+        //组装查询条件
+        criteria.andIn("goodsId", longs);
+
+        List<TbItem> itemList = itemMapper.selectByExample(example);
+
+        return itemList;
+    }
+
+    @Override
+    public List<TbGoods> findGoodsListByGoodsIds(Long[] goodsIds) {
+
+        Example example = new Example(TbGoods.class);
+
+        Example.Criteria criteria = example.createCriteria();
+
+        List longs = Arrays.asList(goodsIds);
+
+        criteria.andIn("id",longs);
+
+        List<TbGoods> goodsList = goodsMapper.selectByExample(example);
+        return goodsList;
+    }
+
+    @Override
+    public void updateMarketable(Long[] goodsIds,String marketable) {
+        //修改的结果
+        TbGoods record = new TbGoods();
+        record.setIsMarketable(marketable);
+        //构建修改范围,设置条件
+        Example example = new Example(TbGoods.class);
+        Example.Criteria criteria = example.createCriteria();
+        List longs = Arrays.asList(goodsIds);
+
+        criteria.andIn("id",longs);
+        //开始更新
+        goodsMapper.updateByExampleSelective(record,example);
+
+    }
+
 }

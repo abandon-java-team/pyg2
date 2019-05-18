@@ -283,5 +283,45 @@ app.controller('goodsController', function ($scope, $controller, $location, good
         }
         return false;
     }
+    $scope.statusMarketable=['未上架','已上架'];
+
+    /**
+     * 点击商品上架,生成静态页面
+     * @param marketable
+     * @constructor
+     */
+    $scope.addMarketable=function (marketable) {
+
+        if ($scope.selectIds.length < 1){
+            alert("请选择商品");
+            return;
+        }
+        goodsService.addMarketable($scope.selectIds,marketable).success(function (response) {
+
+            alert(response.message);
+            if(response.success){
+                $scope.reloadList();
+                //清空审核列表
+                $scope.selectIds = [];
+            }
+        })
+    }
+
+    $scope.deleteMarketable=function (marketable) {
+
+        if ($scope.selectIds.length < 1){
+            alert("请选择商品");
+            return;
+        }
+        goodsService.deleteMarketable($scope.selectIds,marketable).success(function (response) {
+            alert(response.message);
+            if(response.success){
+                $scope.reloadList();
+                //清空审核列表
+                $scope.selectIds = [];
+            }
+
+        })
+    }
 
 });
