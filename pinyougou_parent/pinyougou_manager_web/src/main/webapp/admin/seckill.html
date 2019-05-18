@@ -5,7 +5,7 @@
     <!-- 页面meta -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>订单管理</title>
+    <title>秒杀订单管理</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
     <link rel="stylesheet" href="../plugins/bootstrap/css/bootstrap.min.css">
@@ -22,18 +22,19 @@
     <!-- 分页组件结束 -->
     <script type="text/javascript" src="../js/base_pagination.js"></script>
     <script type="text/javascript" src="../js/service/orderService.js"></script>
+    <script type="text/javascript" src="../js/service/seckillOrderService.js"></script>
     <script type="text/javascript" src="../js/controller/baseController.js"></script>
-    <script type="text/javascript" src="../js/controller/orderController.js"></script>
+    <script src="../js/controller/seckillOrderController.js"></script>
 
 </head>
 
-<body ng-app="pinyougou" ng-controller="orderController"
-      ng-init="searchEntity()"
+<body ng-app="pinyougou" ng-controller="seckillOrderController"
+      ng-init="paginationConf()"
       class="hold-transition skin-red sidebar-mini">
 <!-- .box-body -->
 
 <div class="box-header with-border">
-    <h3 class="box-title">订单列表</h3>
+    <h3 class="box-title">秒杀订单列表</h3>
 </div>
 
 <div class="box-body">
@@ -45,7 +46,7 @@
         <div class="pull-left">
             <div class="form-group form-inline">
                 <div class="btn-group">
-                    <button type="button" class="btn btn-default" title="刷新" ng-click="reloadList()"><i class="fa fa-refresh"></i> 刷新</button>
+                    <button type="button" class="btn btn-default" title="刷新"  ng-click="reloadList()"><i class="fa fa-refresh"></i> 刷新</button>
                 </div>
             </div>
         </div>
@@ -68,11 +69,12 @@
                 </th>
                 <th class="sorting_asc">订单ID</th>
                 <th class="sorting">实付金额</th>
-                <th class="sorting">状态</th>
+                <th class="sorting">用户ID</th>
                 <th class="sorting">订单创建时间</th>
-                <th class="sorting">买家</th>
-                <th class="sorting">收货人</th>
-                <th class="sorting">收货地址</th>
+                <th class="sorting">订单支付时间</th>
+                <th class="sorting">状态</th>
+                <th class="sorting">地址</th>
+                <th class="sorting">流水号</th>
 				<th class="sorting">卖家</th>
                 <th class="text-center">操作</th>
             </tr>
@@ -80,13 +82,14 @@
             <tbody>
             <tr ng-repeat="entity in list">
                 <td><input ng-click="updateSelection($event,entity.id)" type="checkbox"></td>
-                <td>{{entity.orderIdStr}}</td>
-                <td>{{entity.payment}}</td>
-                <td>{{status[entity.status]}}</td>
-                <td>{{entity.createTime}}</td>
+                <td>{{entity.id}}</td>
+                <td>{{entity.money}}</td>
                 <td>{{entity.userId}}</td>
-                <td>{{entity.receiver}}</td>
-                <td>{{entity.receiverAreaName}}</td>
+                <td>{{entity.createTime}}</td>
+                <td>{{entity.payTime}}</td>
+                <td>{{status[entity.status]}}</td>
+                <td>{{entity.receiverAddress}}</td>
+                <td>{{entity.transactionId}}</td>
                 <td>{{entity.sellerId}}</td>
                 <td class="text-center">
                     <button type="button" class="btn bg-olive btn-xs">详情</button>
