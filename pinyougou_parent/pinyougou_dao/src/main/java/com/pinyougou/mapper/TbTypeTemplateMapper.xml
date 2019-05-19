@@ -10,5 +10,6 @@
         <result column="spec_ids" jdbcType="VARCHAR" property="specIds"/>
         <result column="brand_ids" jdbcType="VARCHAR" property="brandIds"/>
         <result column="custom_attribute_items" jdbcType="VARCHAR" property="customAttributeItems"/>
+        <result column="status" jdbcType="VARCHAR" property="status"/>
     </resultMap>
 </mapper>
