@@ -20,6 +20,20 @@ public class TbBrand implements Serializable {
     private String firstChar;
 
     /**
+     * 状态
+     */
+    @Column(name = "status")
+    private String status;
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    /**
      * 添加getText方法，主要是为了支持前端select2加载数据
      *
      * @return

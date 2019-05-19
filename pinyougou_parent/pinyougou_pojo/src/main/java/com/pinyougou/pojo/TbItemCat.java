@@ -28,6 +28,20 @@ public class TbItemCat implements Serializable {
     private Long typeId;
 
     /**
+     * 状态
+     */
+    @Column(name = "status")
+    private String status;
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    /**
      * 获取类目ID
      *
      * @return id - 类目ID
