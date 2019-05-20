@@ -213,7 +213,7 @@
                             <!--order1-->
                             <div class="choose-title">
                                 <label data-toggle="checkbox" class="checkbox-pretty ">
-                                    <input type="checkbox" checked="checked"><span>{{orderCenter.order.createTime}}  订单编号：{{orderCenter.order.orderId}} 店铺：{{orderCenter.nickName}} <a href="javascript:;">和我联系</a></span>
+                                    <input type="checkbox" checked="checked"><span>{{orderCenter.order.createTime}}  订单编号：{{orderCenter.order.orderIdStr}} 店铺：{{orderCenter.nickName}} <a href="javascript:;">和我联系</a></span>
                                 </label>
                                 <a class="sui-btn btn-info share-btn">分享</a>
                             </div>
@@ -228,13 +228,12 @@
                                     </td>
                                     <td width="5%" class="center">
                                         <ul class="unstyled">
-                                            <li class="o-price">¥599.00</li>
                                             <li>¥{{item.price}}</li>
                                         </ul>
                                     </td>
-                                    <td width="5%" class="center">{{item.num}}</td>
+                                    <td width="5%" class="center">数量:{{item.num}}</td>
                                     <td width="8%" class="center">
-
+                                            状态：<br>{{status[orderCenter.order.status]}}
                                     </td>
                                     <td width="10%" class="center">
                                         <ul class="unstyled">
