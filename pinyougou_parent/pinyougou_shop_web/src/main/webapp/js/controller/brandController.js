@@ -67,6 +67,7 @@ app.controller('brandController', function ($scope, $controller, brandService) {
     $scope.searchEntity = {};//定义搜索对象
 
     //搜索
+    $scope.statusArr = ['未审核', '已审核', '审核未通过', '关闭'];
     $scope.search = function (page, rows) {
         brandService.search(page, rows, $scope.searchEntity).success(
             function (response) {

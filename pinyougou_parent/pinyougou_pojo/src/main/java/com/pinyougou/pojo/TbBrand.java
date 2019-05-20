@@ -9,6 +9,7 @@ public class TbBrand implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     /**
      * 品牌名称
      */
@@ -105,4 +106,6 @@ public class TbBrand implements Serializable {
         sb.append("]");
         return sb.toString();
     }
+
+
 }

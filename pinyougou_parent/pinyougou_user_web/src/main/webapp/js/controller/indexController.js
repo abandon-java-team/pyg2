@@ -11,9 +11,5 @@ app.controller("indexController", function ($scope, loginService,orderCenterServ
       orderCenterService.findOrderByStatus(status).success(function (response) {
           $scope.orderList=response;
       })
-    };
-    // 订单状态 '',1、未付款，2、已付款，3、未发货，4、已发货，5、交易成功，6、交易关闭,7、待评价
-    $scope.orderStatus=["","未付款","已付款","未发货","已发货","交易成功","交易关闭","待评价"];
-    //判断订单的状态
-
+    }
 });

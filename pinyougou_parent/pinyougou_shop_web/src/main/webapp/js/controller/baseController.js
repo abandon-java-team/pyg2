@@ -6,7 +6,7 @@ app.controller("baseController", function ($scope) {
         //总记录数
         totalItems: 10,
         //每页查询的记录数
-        itemsPerPage: 3,
+        itemsPerPage: 10,
         //分页选项，用于选择每页显示多少条记录
         perPageOptions: [10, 20, 30, 40, 50],
         //当页码变更后触发的函数
@@ -19,7 +19,7 @@ app.controller("baseController", function ($scope) {
     $scope.reloadList = function () {
         //$scope.findPage($scope.paginationConf.currentPage, $scope.paginationConf.itemsPerPage);
         $scope.search($scope.paginationConf.currentPage, $scope.paginationConf.itemsPerPage);
-    };
+    }
 
     //选中的id列表
     $scope.selectIds = [];
@@ -35,7 +35,7 @@ app.controller("baseController", function ($scope) {
             //删除数据
             $scope.selectIds.splice(idx, 1);
         }
-    };
+    }
 
     /**
      * 格式化提取JSON串
@@ -52,7 +52,7 @@ app.controller("baseController", function ($scope) {
             result += obj[i][key];
         }
         return result;
-    };
+    }
 
     /**
      * 搜索一个数组中某个属性是否等于某个值
@@ -69,4 +69,4 @@ app.controller("baseController", function ($scope) {
         }
         return null;
     }
-});
+})

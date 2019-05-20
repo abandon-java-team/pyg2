@@ -1,3 +1,4 @@
+//控制层
 app.controller('goodsController', function ($scope, $controller, $location, goodsService,
                                             uploadService, itemCatService, typeTemplateService) {
 
@@ -10,7 +11,7 @@ app.controller('goodsController', function ($scope, $controller, $location, good
                 $scope.list = response;
             }
         );
-    };
+    }
 
     //分页
     $scope.findPage = function (page, rows) {
@@ -20,7 +21,7 @@ app.controller('goodsController', function ($scope, $controller, $location, good
                 $scope.paginationConf.totalItems = response.total;//更新总记录数
             }
         );
-    };
+    }
 
     //查询实体
     $scope.findOne = function () {
@@ -45,7 +46,7 @@ app.controller('goodsController', function ($scope, $controller, $location, good
                 }
             }
         );
-    };
+    }
 
     //保存
     $scope.save = function () {
@@ -65,7 +66,7 @@ app.controller('goodsController', function ($scope, $controller, $location, good
                 }
             }
         );
-    };
+    }
 
     //录入商品
     $scope.add = function () {
@@ -79,7 +80,7 @@ app.controller('goodsController', function ($scope, $controller, $location, good
                 editor.html("");
             }
         })
-    };
+    }
 
 
     //批量删除
@@ -92,7 +93,7 @@ app.controller('goodsController', function ($scope, $controller, $location, good
                 }
             }
         );
-    };
+    }
 
     $scope.searchEntity = {};//定义搜索对象
 
@@ -104,7 +105,7 @@ app.controller('goodsController', function ($scope, $controller, $location, good
                 $scope.paginationConf.totalItems = response.total;//更新总记录数
             }
         );
-    };
+    }
 
     $scope.image_entity = {};
     //文件上传
@@ -117,7 +118,7 @@ app.controller('goodsController', function ($scope, $controller, $location, good
                 alert(response.message);
             }
         })
-    };
+    }
 
     //定义页面实体结构
     //{goods:{},goodsDesc:{itemImages:图片列表,specificationItems:规格列表}}
@@ -125,12 +126,12 @@ app.controller('goodsController', function ($scope, $controller, $location, good
     //添加图片
     $scope.add_image_entity = function () {
         $scope.entity.goodsDesc.itemImages.push($scope.image_entity);
-    };
+    }
 
     //删除图片
     $scope.delete_image_entity = function (index) {
         $scope.entity.goodsDesc.itemImages.splice(index, 1);
-    };
+    }
 
     //加载商品分类一级目录
     $scope.selectItemCat1List = function () {
@@ -138,7 +139,7 @@ app.controller('goodsController', function ($scope, $controller, $location, good
             $scope.itemCat1List = response;
 
         })
-    };
+    }
 
     //二级分类加载
     //$watch(监听的变量名，函数(新的值,原来的值))
@@ -222,7 +223,7 @@ app.controller('goodsController', function ($scope, $controller, $location, good
         }
         //刷新表格
         $scope.createItemList();
-    };
+    }
 
     // 1.创建$scope.createItemList方法，同时创建一条有基本数据，不带规格的初始数据
     $scope.createItemList = function () {
@@ -234,7 +235,7 @@ app.controller('goodsController', function ($scope, $controller, $location, good
             // 9.回到createItemList方法中，在循环中调用addColumn方法，并让itemList重新指向返回结果;
             $scope.entity.itemList = addColumn($scope.entity.itemList, items[i].attributeName, items[i].attributeValue);
         }
-    };
+    }
     // 3.抽取addColumn(当前的表格，列名称，列的值列表)方法，用于每次循环时追加列
     addColumn = function (list, specName, optionValue) {
         // 4.编写addColumn逻辑，当前方法要返回添加所有列后的表格，定义新表格变量newList
@@ -252,7 +253,7 @@ app.controller('goodsController', function ($scope, $controller, $location, good
             }
         }
         return newList;
-    };
+    }
 
     //所有的商品分类列表，下标就是我们的商品分类id，类似Map结构
     $scope.itemCatList = [];
@@ -263,7 +264,7 @@ app.controller('goodsController', function ($scope, $controller, $location, good
                 $scope.itemCatList[response[i].id] = response[i].name;
             }
         })
-    };
+    }
 
     //商品状态
     $scope.status = ['未审核', '已审核', '审核未通过', '关闭'];
@@ -281,7 +282,7 @@ app.controller('goodsController', function ($scope, $controller, $location, good
             }
         }
         return false;
-    };
+    }
     $scope.statusMarketable=['未上架','已上架'];
 
     /**
@@ -304,7 +305,7 @@ app.controller('goodsController', function ($scope, $controller, $location, good
                 $scope.selectIds = [];
             }
         })
-    };
+    }
 
     $scope.deleteMarketable=function (marketable) {
 
