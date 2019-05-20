@@ -118,6 +118,7 @@ app.controller("cartController", function ($scope,$location, cartService) {
     /**
      * success-cart页面回显
      */
+    
     $scope.findItem = function () {
         var itemId = $location.search()["itemId"];
         cartService.findByItemId(itemId).success(function (response) {

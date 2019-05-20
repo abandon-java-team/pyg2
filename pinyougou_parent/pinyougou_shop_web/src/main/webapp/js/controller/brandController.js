@@ -77,4 +77,13 @@ app.controller('brandController', function ($scope, $controller, brandService) {
         );
     }
 
+    //新增品牌
+    $scope.addNewBrand = function () {
+        brandService.add($scope.entity).success(function (response) {
+            if (response.success){
+                alert(response.message)
+            }
+        })
+    }
+
 });	

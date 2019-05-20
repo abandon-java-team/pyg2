@@ -90,4 +90,13 @@ app.controller('specificationController', function ($scope, $controller, specifi
     $scope.deleteTableRow = function (index) {
         $scope.entity.specificationOptionList.splice(index, 1);
     }
+
+    //新增规格申请
+    $scope.addNewSpecification = function () {
+        specificationService.add($scope.entity).success(function (response) {
+            if (response.success){
+                alert(response.message);
+            }
+        })
+    }
 });	
