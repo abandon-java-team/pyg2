@@ -1,18 +1,18 @@
 package com.pinyougou.order.service.impl;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
+import com.pinyougou.mapper.TbItemMapper;
 import com.pinyougou.mapper.TbOrderItemMapper;
 import com.pinyougou.mapper.TbPayLogMapper;
 import com.pinyougou.order.service.OrderService;
+import com.pinyougou.pojo.TbItem;
 import com.pinyougou.pojo.TbOrderItem;
 import com.pinyougou.pojo.TbPayLog;
 import com.pinyougou.pojogroup.Cart;
 import com.pinyougou.utils.IdWorker;
+import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.github.abel533.entity.Example;
@@ -41,6 +41,8 @@ public class OrderServiceImpl implements OrderService {
     private TbOrderItemMapper orderItemMapper;
     @Autowired
     private TbPayLogMapper payLogMapper;
+    @Autowired
+    private TbItemMapper itemMapper;
 
     /**
      * 查询全部
@@ -401,4 +403,77 @@ public class OrderServiceImpl implements OrderService {
         where.setConsignTime(new Date());
         orderMapper.updateByPrimaryKeySelective(where);
     }
+
+    @Override
+    public Map accountByGoods(String sellerId, Date startTime, Date endTime) {
+        return null;
+    }
+
+    /**
+     * 指定时间段统计各商品销售额
+     * @return
+     */
+
+    /*@Override
+    public Map accountByGoods(String sellerId, Date startTime, Date endTime){
+        Map map = new HashMap();
+        List<TbOrder> orderList = null;
+        //sellerId 在tb_item查询商品id
+        TbItem where = new TbItem();
+        where.setSellerId(sellerId);
+        List<TbItem> itemList = itemMapper.select(where);
+        //商品id在tb_order_item查询订单号
+        for (TbItem item : itemList) {
+            //每个商品 多个订单
+            Long itemId = item.getId();
+            TbOrderItem where1 = new TbOrderItem();
+            where1.setItemId(itemId);
+            List<TbOrderItem> orderItems = orderItemMapper.select(where1);
+            for (TbOrderItem orderItem : orderItems) {
+                //获取订单详情
+                TbOrder where2 = new TbOrder();
+                where2.setOrderId(orderItem.getOrderId());
+                TbOrder order = orderMapper.selectByPrimaryKey(where2);
+                if (order.getEndTime().getTime() > endTime.getTime() && startTime.getTime() > order.getEndTime().getTime()){
+                    orderList.add(order);
+                }
+            }
+            map.put(itemId, orderList);
+            orderList.clear();
+        }
+        return map;
+    }*/
+
+    @Override
+    public Map accountByGoods(String sellerId){
+        Map map = new HashMap();
+        List<TbOrder> orderList = new ArrayList<>();
+        //sellerId 在tb_item查询商品id
+        TbItem where = new TbItem();
+        where.setSellerId(sellerId);
+        List<TbItem> itemList = itemMapper.select(where);
+        //商品id在tb_order_item查询订单号
+        for (TbItem item : itemList) {
+            //每个商品 多个订单
+            Long itemId = item.getId();
+            TbOrderItem where1 = new TbOrderItem();
+            where1.setItemId(itemId);
+            List<TbOrderItem> orderItems = orderItemMapper.select(where1);
+            for (TbOrderItem orderItem : orderItems) {
+                //获取订单详情
+                TbOrder where2 = new TbOrder();
+                where2.setOrderId(orderItem.getOrderId());
+                TbOrder order = orderMapper.selectByPrimaryKey(where2);
+                if (order != null){
+                    orderList.add(order);
+                }
+            }
+            map.put(itemId, orderList);
+            if (orderList != null) {
+                orderList.clear();
+            }
+        }
+        return map;
+    }
+
 }

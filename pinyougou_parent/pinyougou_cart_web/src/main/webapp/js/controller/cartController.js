@@ -1,4 +1,4 @@
-app.controller("cartController", function ($scope, cartService) {
+app.controller("cartController", function ($scope,$location, cartService) {
     //查询购物车列表
     $scope.findCartList = function () {
         cartService.findCartList().success(function (response) {
@@ -75,6 +75,53 @@ app.controller("cartController", function ($scope, cartService) {
                     window.location.href = "paysuccess.html";
                 }
             }
+        })
+    }
+
+    /**
+     * 加载收藏夹
+     */
+    $scope.findCollectList = function () {
+        cartService.findCollect().success(function (response) {
+            $scope.collect = response;
+        })
+    };
+
+    /**
+     * 从收藏夹中添加商品到购物车
+     */
+
+    $scope.addCollectToCartList = function (itemId) {
+        cartService.addGoodsToCartListFromCollect(itemId).success(function (response) {
+            if (response.success) {
+                window.location.href = "success-cart.html#?itemId=" + itemId;
+            } else {
+                alert(response.message)
+            }
+        })
+    }
+    /**
+     * 添加到收藏夹
+     */
+
+    $scope.addGoodsToCollectList = function (itemId) {
+        cartService.addGoodsToCollect(itemId).success(function (response) {
+            if (response.success) {
+                alert(response.message)
+                $scope.collectList = response;
+            }else {
+                return;
+            }
+        })
+    }
+
+    /**
+     * success-cart页面回显
+     */
+    $scope.findItem = function () {
+        var itemId = $location.search()["itemId"];
+        cartService.findByItemId(itemId).success(function (response) {
+            $scope.item = response;
         })
     }
 });

@@ -91,4 +91,12 @@ app.controller('orderController', function ($scope, $controller, orderService) {
        }
 
     }
+
+    //订单统计
+    $scope.accountByGoods = function () {
+        orderService.accountByGoods().success(function (response) {
+            alert(response.success);
+            $scope.accountOrderList = response;
+        })
+    }
 });	

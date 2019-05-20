@@ -30,6 +30,20 @@ public class TbTypeTemplate implements Serializable {
     private String customAttributeItems;
 
     /**
+     * 状态
+     */
+    @Column(name = "status")
+    private String status;
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    /**
      * @return id
      */
     public Long getId() {

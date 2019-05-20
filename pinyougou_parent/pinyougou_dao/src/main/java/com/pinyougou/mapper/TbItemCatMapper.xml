@@ -9,5 +9,6 @@
         <result column="parent_id" jdbcType="BIGINT" property="parentId"/>
         <result column="name" jdbcType="VARCHAR" property="name"/>
         <result column="type_id" jdbcType="BIGINT" property="typeId"/>
+        <result column="status" jdbcType="VARCHAR" property="status"/>
     </resultMap>
 </mapper>

@@ -1,6 +1,8 @@
 package com.pinyougou.order.service;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import com.pinyougou.pojo.TbOrder;
 
@@ -90,4 +92,45 @@ public interface OrderService {
      * @param orderId 订单id
      */
     public void deliverGoods(Long orderId);
+
+    /**
+     * 指定时间段统计各商品销售额
+     * @param sellerId
+     * @param startTime
+     * @param endTime
+     * @return
+     */
+    public Map accountByGoods(String sellerId, Date startTime, Date endTime);
+
+    /*@Override
+    public Map accountByGoods(String sellerId, Date startTime, Date endTime){
+        Map map = new HashMap();
+        List<TbOrder> orderList = null;
+        //sellerId 在tb_item查询商品id
+        TbItem where = new TbItem();
+        where.setSellerId(sellerId);
+        List<TbItem> itemList = itemMapper.select(where);
+        //商品id在tb_order_item查询订单号
+        for (TbItem item : itemList) {
+            //每个商品 多个订单
+            Long itemId = item.getId();
+            TbOrderItem where1 = new TbOrderItem();
+            where1.setItemId(itemId);
+            List<TbOrderItem> orderItems = orderItemMapper.select(where1);
+            for (TbOrderItem orderItem : orderItems) {
+                //获取订单详情
+                TbOrder where2 = new TbOrder();
+                where2.setOrderId(orderItem.getOrderId());
+                TbOrder order = orderMapper.selectByPrimaryKey(where2);
+                if (order.getEndTime().getTime() > endTime.getTime() && startTime.getTime() > order.getEndTime().getTime()){
+                    orderList.add(order);
+                }
+            }
+            map.put(itemId, orderList);
+            orderList.clear();
+        }
+        return map;
+    }*/
+
+    Map accountByGoods(String sellerId);
 }
