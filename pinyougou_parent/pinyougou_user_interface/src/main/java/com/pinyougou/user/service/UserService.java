@@ -5,6 +5,7 @@ import java.util.List;
 import com.pinyougou.pojo.TbUser;
 
 import entity.PageResult;
+import entity.Result;
 
 /**
  * 业务逻辑接口
@@ -81,4 +82,5 @@ public interface UserService {
      */
     public boolean checkSmsCode(String phone, String code);
 
+    void freeze(Long userId);
 }

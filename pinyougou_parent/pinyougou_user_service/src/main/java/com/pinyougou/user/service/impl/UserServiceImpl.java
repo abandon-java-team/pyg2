@@ -4,6 +4,7 @@ import java.util.*;
 
 import com.alibaba.fastjson.JSON;
 import com.pinyougou.user.service.UserService;
+import entity.Result;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.alibaba.dubbo.config.annotation.Service;
@@ -223,6 +224,14 @@ public class UserServiceImpl implements UserService {
     public boolean checkSmsCode(String phone, String code) {
         String smsCodes = (String) redisTemplate.boundHashOps("smsCodes").get(phone);
         return code.equals(smsCodes);
+    }
+
+    @Override
+    public void freeze(Long userId) {
+        TbUser tbUser = new TbUser();
+        tbUser.setId(userId);
+        tbUser.setStatus("0");
+        userMapper.updateByPrimaryKeySelective(tbUser);
     }
 
 }

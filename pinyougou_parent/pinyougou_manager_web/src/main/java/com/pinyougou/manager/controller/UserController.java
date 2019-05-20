@@ -121,4 +121,14 @@ public class UserController {
         return userService.findPage(user, page, rows);
     }
 
+    @RequestMapping("/freeze")
+    public Result freeze(Long userId) {
+        try {
+            userService.freeze(userId);
+            return new Result(true, "冻结成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Result(false, "冻结失败");
+        }
+    }
 }

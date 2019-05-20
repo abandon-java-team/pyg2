@@ -29,4 +29,8 @@ app.service('userService', function ($http) {
     this.search = function (page, rows, searchEntity) {
         return $http.post('../user/search.do?page=' + page + "&rows=" + rows, searchEntity);
     }
+    //冻结用户
+    this.freeze = function (userId) {
+        return $http.get("../user/freeze.do?userId=" + userId);
+    }
 });

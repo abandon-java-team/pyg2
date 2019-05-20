@@ -76,4 +76,17 @@ app.controller('userController', function ($scope, $controller, userService) {
         );
     }
 
+    //冻结用户
+    $scope.status = ["冻结中", "正常"];
+
+    $scope.freeze = function (userId) {
+       userService.freeze(userId).success(function (response) {
+           if (response.success){
+               $scope.findAll();
+           } else{
+               alert(response.msg);
+           }
+       })
+    }
+
 });	

@@ -76,22 +76,24 @@
                 <th class="sorting">用户联系方式</th>
                 <th class="sorting">创建的时间</th>
                 <th class="sorting">最后登陆时间</th>
+                <th class="sorting">状态</th>
                 <th class="text-center">操作</th>
             </tr>
             </thead>
             <tbody>
             <tr ng-repeat="entity in list">
-                <td><input type="checkbox" ng-click="findAll()"></td>
+                <td><input type="checkbox"></td>
                 <td>{{entity.id}}</td>
                 <td>{{entity.username}}</td>
                 <td>{{entity.phone}}</td>
                 <td>{{entity.created}}</td>
                 <td>{{entity.lastLoginTime}}</td>
-                <!--<td class="text-center">
-                    <button type="button" class="btn bg-olive btn-xs" data-toggle="modal" data-target="#editModal"
-                            ng-click="findOne(entity.id)">修改
+                <td>{{status[entity.status]}}</td>
+                <td class="text-center">
+                    <button type="button" ng-click="freeze(entity.id)" class="btn bg-olive btn-xs"
+                            >冻结
                     </button>
-                </td>-->
+                </td>
             </tr>
             </tbody>
         </table>
