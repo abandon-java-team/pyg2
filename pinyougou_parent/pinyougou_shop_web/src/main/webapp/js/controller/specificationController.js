@@ -1,11 +1,11 @@
 //控制层
-app.controller('seckillGoodsController', function ($scope, $controller, seckillGoodsService) {
+app.controller('specificationController', function ($scope, $controller, specificationService) {
 
     $controller('baseController', {$scope: $scope});//继承
 
     //读取列表数据绑定到表单中  
     $scope.findAll = function () {
-        seckillGoodsService.findAll().success(
+        specificationService.findAll().success(
             function (response) {
                 $scope.list = response;
             }
@@ -14,7 +14,7 @@ app.controller('seckillGoodsController', function ($scope, $controller, seckillG
 
     //分页
     $scope.findPage = function (page, rows) {
-        seckillGoodsService.findPage(page, rows).success(
+        specificationService.findPage(page, rows).success(
             function (response) {
                 $scope.list = response.rows;
                 $scope.paginationConf.totalItems = response.total;//更新总记录数
@@ -24,7 +24,7 @@ app.controller('seckillGoodsController', function ($scope, $controller, seckillG
 
     //查询实体
     $scope.findOne = function (id) {
-        seckillGoodsService.findOne(id).success(
+        specificationService.findOne(id).success(
             function (response) {
                 $scope.entity = response;
             }
@@ -34,10 +34,10 @@ app.controller('seckillGoodsController', function ($scope, $controller, seckillG
     //保存
     $scope.save = function () {
         var serviceObject;//服务层对象
-        if ($scope.entity.id != null) {//如果有ID
-            serviceObject = seckillGoodsService.update($scope.entity); //修改
+        if ($scope.entity.specification.id != null) {//如果有ID
+            serviceObject = specificationService.update($scope.entity); //修改
         } else {
-            serviceObject = seckillGoodsService.add($scope.entity);//增加
+            serviceObject = specificationService.add($scope.entity);//增加
         }
         serviceObject.success(
             function (response) {
@@ -55,7 +55,7 @@ app.controller('seckillGoodsController', function ($scope, $controller, seckillG
     //批量删除
     $scope.dele = function () {
         //获取选中的复选框
-        seckillGoodsService.dele($scope.selectIds).success(
+        specificationService.dele($scope.selectIds).success(
             function (response) {
                 if (response.success) {
                     $scope.reloadList();//刷新列表
@@ -67,8 +67,9 @@ app.controller('seckillGoodsController', function ($scope, $controller, seckillG
     $scope.searchEntity = {};//定义搜索对象
 
     //搜索
+    $scope.statusArr = ['未审核', '已审核', '审核未通过', '关闭'];
     $scope.search = function (page, rows) {
-        seckillGoodsService.search(page, rows, $scope.searchEntity).success(
+        specificationService.search(page, rows, $scope.searchEntity).success(
             function (response) {
                 $scope.list = response.rows;
                 $scope.paginationConf.totalItems = response.total;//更新总记录数
@@ -76,4 +77,17 @@ app.controller('seckillGoodsController', function ($scope, $controller, seckillG
         );
     }
 
+    //声明规格项列表，这里写$scope.entity.specificationOptionList=[]，当调用数组的push方法时会报错
+    //entity完整的内容为$scope.entity = {specification:{},specificationOptionList:[]}
+    $scope.entity = {specificationOptionList: []};
+
+    //表格行添加
+    $scope.addTableRow = function () {
+        $scope.entity.specificationOptionList.push({});
+    }
+
+    //表格行删除
+    $scope.deleteTableRow = function (index) {
+        $scope.entity.specificationOptionList.splice(index, 1);
+    }
 });	
