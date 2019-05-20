@@ -3,8 +3,12 @@
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
              xmlns="http://www.springframework.org/schema/security"
-             xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-                  http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+             xsi:schemaLocation="http://www.springframework.org/schema/beans
+             http://www.springframework.org/schema/beans/spring-beans.xsd
+             http://www.springframework.org/schema/security
+             http://www.springframework.org/schema/security/spring-security.xsd
+             http://code.alibabatech.com/schema/dubbo
+             http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
 
     <!-- 放行资源-->
     <http pattern="/css/**" security="none"/>
@@ -38,7 +42,8 @@
             username-parameter:配置默认表单用户名提交时使用的name表单名称，默认是username，我们一般不修改
             password-parameter:配置默认表单密码提交时使用的name表单名称，默认是password，我们一般不修改
         -->
-        <form-login login-page="/shoplogin.html" default-target-url="/admin/index.html"
+        <form-login login-page="/shoplogin.html"
+                    default-target-url="/admin/index.html"
                     authentication-failure-url="/shoplogin.html"
                     always-use-default-target="true"/>
 

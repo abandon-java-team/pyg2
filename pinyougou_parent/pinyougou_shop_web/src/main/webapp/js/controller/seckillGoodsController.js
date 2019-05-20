@@ -1,5 +1,5 @@
 //控制层
-app.controller('seckillGoodsController', function ($scope, $controller, seckillGoodsService) {
+app.controller('seckillGoodsController', function ($scope, $controller,seckillGoodsService,uploadService) {
 
     $controller('baseController', {$scope: $scope});//继承
 
@@ -10,7 +10,7 @@ app.controller('seckillGoodsController', function ($scope, $controller, seckillG
                 $scope.list = response;
             }
         );
-    }
+    };
 
     //分页
     $scope.findPage = function (page, rows) {
@@ -20,7 +20,7 @@ app.controller('seckillGoodsController', function ($scope, $controller, seckillG
                 $scope.paginationConf.totalItems = response.total;//更新总记录数
             }
         );
-    }
+    };
 
     //查询实体
     $scope.findOne = function (id) {
@@ -29,10 +29,12 @@ app.controller('seckillGoodsController', function ($scope, $controller, seckillG
                 $scope.entity = response;
             }
         );
-    }
+    };
 
     //保存
     $scope.save = function () {
+        //读取富文本内容，保存到对象中
+        $scope.entity.introduction = editor.html();
         var serviceObject;//服务层对象
         if ($scope.entity.id != null) {//如果有ID
             serviceObject = seckillGoodsService.update($scope.entity); //修改
@@ -49,7 +51,7 @@ app.controller('seckillGoodsController', function ($scope, $controller, seckillG
                 }
             }
         );
-    }
+    };
 
 
     //批量删除
@@ -62,7 +64,7 @@ app.controller('seckillGoodsController', function ($scope, $controller, seckillG
                 }
             }
         );
-    }
+    };
 
     $scope.searchEntity = {};//定义搜索对象
 
@@ -74,6 +76,35 @@ app.controller('seckillGoodsController', function ($scope, $controller, seckillG
                 $scope.paginationConf.totalItems = response.total;//更新总记录数
             }
         );
-    }
+    };
 
-});	
+    //订单状态的改变
+    $scope.isStatus=["未审核","已审核","审核不通过"]
+    //订单审核功能实现
+    $scope.isCheck=function (ids) {
+        seckillGoodsService.isCheck(ids).success(function (response) {
+            alert(response.message);
+            $scope.reloadList();
+            //初始化数组
+            $scope.selectIds=[];
+        })
+    };
+    //订单审核功能实现
+    $scope.isNotCheck=function (ids) {
+        seckillGoodsService.isNotCheck(ids).success(function (response) {
+            alert(response.message);
+            $scope.reloadList();
+            //初始化数组
+            $scope.selectIds=[];
+        })
+    };
+
+    //记录图片的地址
+    $scope.uploadImage=function () {
+        uploadService.uploadFile().success(function (response) {
+            $scope.image_url=response.message;
+        })
+    };
+    //根据登入的商家用户查询商家的商品信息
+
+});

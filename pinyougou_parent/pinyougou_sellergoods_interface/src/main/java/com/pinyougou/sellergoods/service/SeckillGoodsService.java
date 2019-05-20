@@ -1,10 +1,9 @@
-package com.pinyougou.seckill.service;
-
-import java.util.List;
+package com.pinyougou.sellergoods.service;
 
 import com.pinyougou.pojo.TbSeckillGoods;
-
 import entity.PageResult;
+
+import java.util.List;
 
 /**
  * 业务逻辑接口
@@ -59,7 +58,6 @@ public interface SeckillGoodsService {
 
     /**
      * 分页
-     *
      * @param pageNum  当前页 码
      * @param pageSize 每页记录数
      * @return
@@ -67,16 +65,11 @@ public interface SeckillGoodsService {
     public PageResult findPage(TbSeckillGoods seckillGoods, int pageNum, int pageSize);
 
     /**
-     * 查询当前正在参与秒杀的商品
-     *
-     * @return
+     * 秒杀商品审核通过的功能
+     * @param ids
      */
-    public List<TbSeckillGoods> findList();
+    void isCheck(Long[] ids,String status);
 
-    /**
-     * 根据ID获取实体(从缓存中读取)
-     */
-    public TbSeckillGoods findOneFromRedis(Long id);
-
+    //根据商家登入的SellerId查询spuID和SkuId
 
 }
