@@ -78,4 +78,5 @@ public interface SeckillGoodsService {
      */
     public TbSeckillGoods findOneFromRedis(Long id);
 
+    void saveDataToRedis();
 }

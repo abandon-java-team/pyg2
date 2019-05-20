@@ -14,6 +14,7 @@ import com.pinyougou.mapper.TbSeckillGoodsMapper;
 import com.pinyougou.pojo.TbSeckillGoods;
 import entity.PageResult;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.scheduling.annotation.Scheduled;
 
 /**
  * 业务逻辑实现
@@ -180,5 +181,41 @@ public class SeckillGoodsServiceImpl implements SeckillGoodsService {
         TbSeckillGoods seckillGoods = (TbSeckillGoods) redisTemplate.boundHashOps("seckillGoodses").get(id);
         return seckillGoods;
     }
+
+    //每隔一个小时运行一次
+    @Scheduled(cron = "0 0 * * * ? *")
+    @Override
+    public void saveDataToRedis() {
+        System.out.println(123);
+        // select * from tb_seckill_goods
+        // where status = '1' and stock_count>0 and start_time <=NOW() and end_time >= NOW();
+        Date date = new Date();
+        //查出要参加秒杀的商品.
+
+        Example example = new Example(TbSeckillGoods.class);
+        Example.Criteria criteria = example.createCriteria();
+        //库存大于0
+        criteria.andGreaterThan("stockCount", 0);
+        //状态审核通过
+        criteria.andEqualTo("status", "1");
+        // startTime <= 当前时间 <= endTime
+        Date now = new Date();
+        criteria.andLessThanOrEqualTo("startTime", now);
+        criteria.andGreaterThanOrEqualTo("endTime", now);
+        //查询数据
+        List<TbSeckillGoods> goodsList = seckillGoodsMapper.selectByExample(example);
+        //将商品放入redis中.
+        for (TbSeckillGoods goods : goodsList) {
+            redisTemplate.boundHashOps("seckillGoodses").put(goods.getId(), goods);
+            //有多少库存, 就放入多少个redis消息. (使用redis消息队列,解决高并发的超卖问题.)
+            Integer stockCount = goods.getStockCount();
+            Long id = goods.getId();
+            for (int i = 0; i < stockCount; i++) {
+                redisTemplate.boundListOps("seckill_goods_count" + goods.getGoodsId()).rightPush(id);
+            }
+        }
+        System.out.println("is ok");
+    }
+
 
 }
